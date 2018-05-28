@@ -1,0 +1,148 @@
+@import "//at.alicdn.com/t/font_649546_9qsk32euoydjkyb9.css";
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 0.8rem;
+}
+i {
+  font-style: normal;
+}
+li {
+  list-style: none;
+}
+body {
+  background: #fff;
+}
+.flex {
+  display: flex;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.info {
+  font-size: 1rem;
+  padding: 0.5rem;
+  line-height: 2rem;
+  font-size: 0.7rem;
+}
+.info label {
+  color: #252525;
+  width: 25%;
+  display: block;
+  float: left;
+  font-size: 0.7rem;
+}
+.info li {
+  border-bottom: 1px solid #eee;
+  height: 2rem;
+  padding-left: 0.3rem;
+}
+.info input {
+  border: none;
+  height: 1rem;
+  font-size: 0.7rem;
+  outline: none;
+}
+.info button {
+  background: #f7ab41;
+  color: #fff;
+  box-shadow: none;
+  border: none;
+  font-size: 0.7rem;
+  width: 6rem;
+  height: 1.3rem;
+  border-radius: 5px;
+}
+.header {
+  padding: 0 0.5rem;
+  background: #38373c;
+  color: #fff;
+  font-size: 0.8rem;
+  height: 2rem;
+  line-height: 2rem;
+  position: fixed;
+  width: 94vw;
+  top: 0;
+}
+.header button {
+  background: none;
+  color: #fff;
+  border: none;
+  box-shadow: none;
+}
+.footer {
+  background: #fff;
+  position: fixed;
+  bottom: 0vh;
+  left: 0;
+  height: 2rem;
+  border-top: 1px solid #e9e9e9;
+  width: 100vw;
+  line-height: 2rem;
+}
+.footer a {
+  background: #ff9402;
+  color: #fff;
+  width: 25%;
+  height: 100%;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+.footer p {
+  margin-left: 1rem;
+  font-weight: 600;
+}
+
+.order {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 0.2rem;
+}
+.order li {
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  color: #6e6e6e;
+
+  padding: 0.5rem 0;
+}
+.order li,
+.order li span {
+  font-size: 0.7rem;
+}
+.order .title {
+  font-size: 1rem;
+  color: #252525;
+  border-bottom: 1px solid #f7ab41;
+}
+.order .title span,
+.order .title i {
+  color: #ff9402;
+  font-size: 1rem;
+}
+.order .buyNum {
+  margin-top: 0.5rem;
+}
+.order .buyNum span {
+  color: #f7ab41;
+}
+.order .iconfont {
+  margin: 0 1rem;
+  color: #6e6e6e;
+  font-size: 0.8rem;
+}
+.order .icon-jia-tianchong,
+.order .icon-jian-tianchong {
+  font-size: 1rem;
+  margin: 0;
+}
+.order .icon-jia-tianchong,
+.footer span {
+  color: #ff9402;
+}
+.order .icon-jian-tianchong {
+  color: #dadada;
+}

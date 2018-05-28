@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>支付测试</title>
+    <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <input type="number" placeholder="支付金额">
+    <button onclick="pay()"> 支付</button>
+    <button onclick="getRedPacket()">收红包</button>
+    <script>
+        function pay() {
+            let money = parseInt($('input').val());
+            $.ajax({
+                url: '/wechat/pay-test',
+                method: 'get',
+                data: { money },
+                success: function (rtn) {
+                    if (rtn.ok) {
+                        WeixinJSBridge.invoke('getBrandWCPayRequest', rtn.data, function (res) {
+                            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                                alert("支付成功");
+                                // 这里可以跳转到订单完成页面向用户展示
+                            } else {
+                                alert(JSON.stringify(res));
+                            }
+                        });
+                    } else {
+                        alert(rtn.data);
+                    }
+                }
+            })
+        };
+        function getRedPacket() {
+            let money = parseInt($('input').val());
+            $.ajax({
+                url: '/wechat/redpacket-test',
+                method: 'get',
+                data: { money },
+                success: function (rtn) {
+                    if (rtn.ok) {
+                        alert('成功')
+                    } else {
+                        alert(rtn.data);
+                    }
+                }
+            })
+        }
+
+    </script>
+</body>
+
+</html>

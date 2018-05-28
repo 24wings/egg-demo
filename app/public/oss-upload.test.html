@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>oss upload test </title>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <form method="POST" action="/test/upload">
+        <input type="file" name="base64" onchange="upload(this)">
+
+        <button type="submit">提交</button>
+    </form>
+    <script>
+        function upload(fileInput) {
+            let file = fileInput.files[0];
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let base64 = e.target.result;
+                $.ajax({
+                    contentType: "application/json",
+                    // dataType: "json",
+                    url: '/test/upload',
+
+                    data: JSON.stringify({ base64 }),
+                    method: 'POST',
+                    success: (rtn) => {
+                        alert(JSON.stringify(rtn));
+                    }
+                })
+            }
+            reader.readAsDataURL(file);
+        }
+
+    </script>
+
+</body>
+
+</html>

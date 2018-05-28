@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试创建素材页面</title>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <img src="" alt="" id="home_image">
+    <img src="" alt="" id="ticket_image">
+    <img src="" alt="" id="share_image_url">
+
+    <button onclick="selectHomeImage()">选取首页海报</button>
+    <button onclick="selectTicketImage()">选取优惠券图片</button>
+    <button onclick="selectShareImageUrl()">选取分享图标</button>
+    <input type="text" id="shop_phone" onblur="shop_phone=this.value">
+    <button onclick="createMaterial()">提交素材</button>
+    <script>
+        /** 非固定的商户id, 通过模板渲染或者其他方式 */
+        var shopuser_id = '123';
+        var home_image_url, ticket_image_url, share_image_url, shop_phone;
+
+        function selectShareImageUrl() {
+            getFile().then(base64 => {
+                $.ajax({
+                    contentType: "application/json",
+                    method: 'post',
+                    url: '/test/upload',
+                    data: JSON.stringify({ base64 }),
+                    success: rtn => {
+                        $('#share_image_url').attr('src', rtn.url)
+                        share_image_url = rtn.url;
+                    }
+                })
+
+            })
+        }
+
+
+        function selectHomeImage() {
+            getFile().then(base64 => {
+                $.ajax({
+                    contentType: "application/json",
+                    method: 'post',
+                    url: '/test/upload',
+                    data: JSON.stringify({ base64 }),
+                    success: rtn => {
+                        $('#home_image').attr('src', rtn.url)
+                        home_image_url = rtn.url;
+                    }
+                })
+
+            })
+
+        }
+        function selectTicketImage() {
+            getFile().then(base64 => {
+                $.ajax({
+                    contentType: "application/json",
+                    method: 'post',
+                    url: '/test/upload',
+                    data: JSON.stringify({ base64 }),
+                    success: rtn => {
+                        $('#ticket_image').attr('src', rtn.url);
+                        ticket_image_url = rtn.url
+                    }
+                })
+
+            })
+        }
+        function createMaterial() {
+            $.ajax({
+                contentType: "application/json",
+                url: '/create-material',
+                method: 'post',
+                data: JSON.stringify({ home_image_url, shopuser_id, ticket_image_url, shop_phone, share_image_url }),
+                success: function (rtn) {
+                    if (rtn.ok) {
+                        alert('成功')
+                    } else {
+                        alert(rtn.data);
+                    }
+                }
+            })
+        }
+
+        function getFile() {
+            return new Promise(resolve => {
+                let inputEl = document.createElement('input');
+                inputEl.type = 'file';
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    resolve(e.target.result);
+                }
+                inputEl.onchange = function () {
+
+                    let file = inputEl.files[0];
+                    reader.readAsDataURL(file);
+                }
+
+                inputEl.click()
+            })
+        }
+
+
+    </script>
+
+</body>
+
+</html>

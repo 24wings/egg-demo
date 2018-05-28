@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>邦为足浴</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
+    <script src="http://webapi.amap.com/maps?v=1.4.6&key=e1c2561ca6f78818e01e104d627cca50&plugin=AMap.Driving"></script>
+    <script src="/js/rem.js"></script>
+    <script src="/pages/signup.js"></script>
+    <script src="/pages/detail.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <!-- <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- 开发环境版本，包含了用帮助的命令行警告 -->
+    <script src="/js/tool.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        .cover {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            left: 0px;
+            top: 0px;
+            background-image: url(http://bangwei-store.oss-cn-beijing.aliyuncs.com//images/1525532857755.png);
+            /* opacity: .1; */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .home-page {
+            z-index: 999999999999999;
+            opacity: 0.99;
+            width: 100vw;
+            height: 100vh;
+            /* opacity: .59; */
+            position: fixed;
+        }
+
+        .prefix {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            margin-bottom: 2rem;
+            flex-direction: column;
+        }
+
+        .prefix img {
+            max-width: 40px;
+            margin: .5rem 1rem;
+        }
+
+        .title {
+            color: #ecc23e;
+            font-size: .7rem;
+            text-align: center;
+        }
+
+        .info li {
+            border-bottom: 1px solid #bfbfbf;
+
+        }
+
+        .info li input {
+            background: transparent;
+        }
+
+        .info label {
+            color: #9d9c9c;
+        }
+
+        input::-webkit-input-placeholder,
+        textarea::-webkit-input-placeholder {
+
+            color: #9d9c9c;
+
+        }
+
+        input:-moz-placeholder,
+        textarea:-moz-placeholder {
+
+            color: #9d9c9c;
+
+        }
+
+        input::-moz-placeholder,
+        textarea::-moz-placeholder {
+
+            color: #9d9c9c;
+
+        }
+
+        input:-ms-input-placeholder,
+        textarea:-ms-input-placeholder {
+
+            color: #9d9c9c;
+
+        }
+
+        .info .login-btn {
+            max-width: 56%;
+            font-size: 0.6rem;
+            width: 100%;
+            background: #fff;
+            color: #333333;
+            max-width: 50%;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            padding: 7px 16px;
+            border-radius: 25px;
+            border: none;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <router-view></router-view>
+
+    </div>
+
+
+    <script>
+        function getMaterialId() {
+            localStorage.getItem('material_id');
+
+
+        }
+        function getWeUser() {
+            return {
+                openid: localStorage.getItem("openid"),
+                nickname: localStorage.getItem("nickname"),
+                sex: localStorage.getItem("sex"),
+                language: localStorage.getItem("language"),
+                sex: localStorage.getItem("sex"),
+                province: localStorage.getItem("province"),
+                country: localStorage.getItem("country"),
+                headimgurl: localStorage.getItem("headimgurl"),
+                privilege: localStorage.getItem("privilege")
+            }
+        }
+
+        localStorage.setItem('material_id', `{{material.id}}`);
+        localStorage.setItem("openid", `{{weUser.openid}}`);
+        localStorage.setItem("nickname", `{{weUser.nickname}}`);
+        localStorage.setItem("sex", `{{weUser.sex}}`);
+        localStorage.setItem("language", `{{weUser.language}}`);
+        localStorage.setItem("sex", `{{weUser.sex}}`);
+        localStorage.setItem("province", `{{weUser.province}}`);
+        localStorage.setItem("country", `{{weUser.country}}`);
+        localStorage.setItem("headimgurl", `{{weUser.headimgurl}}`);
+        localStorage.setItem("privilege", `{{weUser.privilege}}`);
+
+    </script>
+
+    <script>
+
+        const routes = [
+            { path: '/', component: Signup },
+            { path: '/detail', component: Detail }
+        ]
+        const router = new VueRouter({
+            routes // （缩写）相当于 routes: routes
+        })
+
+
+        new Vue({
+            router,
+            el: '#app',
+        });
+        Vue.config.errorHandler = function (err, vm, info) {
+            alert(JSON.stringify(err) + vm + info);
+            // handle error
+            // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
+            // 只在 2.2.0+ 可用
+        }
+        $.ajax({
+            url: '/wechat/ticket',
+            // method: 'post',
+            data: {
+                url: location.href
+            },
+            success: function (rtn) {
+                console.log(rtn);
+            }
+        })
+    </script>
+</body>
+
+</html>
