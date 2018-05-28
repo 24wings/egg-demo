@@ -16,6 +16,7 @@ export default (appInfo: EggAppConfig) => {
     appInfo.name
     }`;
 
+
   // override config from framework / plugin
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + "_1524146141340_7369";
@@ -69,13 +70,13 @@ export default (appInfo: EggAppConfig) => {
   // };
   config.cluster = {
     listen: {
-      port: 7001,
+      port: 80,
       hostname: "0.0.0.0",
       proxy: true
       // path: '/var/run/egg.sock',
     }
   };
-  config.proxy = true;
+  config.proxy = false;
 
 
   config.bodyParser = {
